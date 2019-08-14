@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script type="text/javascript">
+  function mockiterator() {
+    let index = 0
+    //console.log(this)
+    let that = this
+    if(that instanceof Array){
+      return {
+        next:function () {
+          return {
+            value:that[index++],
+            done:index-1 < that.length ? false : true
+          }
+        }
+      }
+    }else{
+      let keys = Object.keys(that)
+      return {
+        next:function () {
+          return {
+            value:that[keys[index++]],
+            done:index-1 < keys.length ? false : true
+          }
+        }
+      }
+    }
+    
+  }
+  
+  Object.prototype[Symbol.iterator] = mockiterator
+  Array.prototype[Symbol.iterator] = mockiterator
+  let obj = {m:1,n:2,k:3,t:6,l:7}
+  console.log(...obj)
+  
+  for (let item of obj){
+     console.log(item)
+  }
+  let arr = [2,4,6,8]
+  console.log(...arr)
+  
+  
+</script>
+</body>
+</html>

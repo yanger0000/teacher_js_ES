@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generator函数</title>
+</head>
+<body>
+
+  <!--
+   Generator函数（现在很不常用）
+    概念：
+      1、ES6提供的解决异步编程的方案之一（是一个过度“产物”，现在已经被async与await代替）
+      2、Generator函数是一个状态机，内部封装了不同状态的数据，
+      3、用来生成遍历器对象
+      4、可暂停函数(惰性求值函数), yield可暂停，next方法可启动。每次返回的是yield后的表达式结果
+    特点：
+      1、function 与函数名之间有一个星号
+      2、generator函数调用返回一个指针对象，不会执行函数内部逻辑
+      3、调用指针对象上的next方法函数内部逻辑开始执行，遇到yield表达式停止(该句已经执行完毕)，返回{value: yield后的表达式结果, done: false/true}
+      4、再次调用next方法会从上一次停止时的yield处开始，直到最后
+  -->
+<script type="text/javascript">
+  
+  //Generator函数,又称可暂停函数，又称惰性求值函数
+  function * demo(a,b) {
+    console.log('函数开始执行了')
+    let result
+    yield console.log('运算即将开始')
+    yield result = a+b
+    yield console.log('运算已经结束')
+    yield console.log(result)
+  }
+  
+  let point = demo(1,3)
+  console.log(point.next());
+  console.log(point.next());
+  console.log(point.next());
+  console.log(point.next());
+  console.log(point.next());
+  
+  
+</script>
+</body>
+</html>

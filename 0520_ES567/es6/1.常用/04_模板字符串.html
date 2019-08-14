@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04_模板字符串</title>
+</head>
+<body>
+<!--
+1. 模板字符串 : 简化字符串的拼接
+  * 模板字符串必须用 `` 包含
+  * 变化的部分使用${xxx}定义
+-->
+<script type="text/javascript">
+
+  let person = {name:'kobe',age:18,sex:'男'}
+  
+  console.log('我的名字是'+'"'+person.name+'"'+'，我的年龄是'+person.age+'，我是一个'+person.sex+'人')
+  console.log(`我的名字是"${person.name}"，我的年龄是${person.age}，我是一个${person.sex}人`)
+  
+
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>01_let关键字</title>
+</head>
+<body>
+
+<!--
+***let
+1. 作用:
+  * 与var类似, 用于声明一个变量
+2. 特点:
+  * 在块级作用域内有效（定义全局能够直接使用的变量时候也可以用let）
+  * 不能重复声明
+  * 如果用var定义的有提升，提升后随后赋值为undefined
+    如果用let定义的有提升！！！，提升后没初始化（js中如果一个变量的值没有经过初始化，是不能用的）
+    这里的没有值（这里的没有，不是null，不是undefined）值。
+    【let声明的变量，在声明语句之前不可用】
+3. 应用:
+  * 循环遍历加监听
+  * 使用let取代var是趋势
+-->
+<script type="text/javascript">
+  
+  //1.在块级作用域内有效,块界作用域?块？
+  /*var a = 1
+  if(a===1){
+    let a = 2
+  }
+  console.log(a)*/
+  
+  //2.不能重复声明
+  /*let a = 1
+  let a = 3
+  console.log(a)*/
+  
+  //3.let声明的变量，在声明语句之前不可用
+  console.log(a);
+  let a = 1;
+  
+  //用let定义的变量，不在window上，但是全局能直接使用，存放在和window同级的“一块区域内”
+  //debugger;
+  /*let a = 1
+  console.log(a)*/
+  
+</script>
+</body>
+
+</html>

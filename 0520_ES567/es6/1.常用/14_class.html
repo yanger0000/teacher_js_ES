@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>12_class</title>
+</head>
+<body>
+</body>
+<!--
+1. 通过 class 定义类
+2. 在类中通过constructor定义构造方法
+3. 通过new来创建类的实例
+4. 通过 extends 来实现类的继承
+5. 通过super调用父类的构造方法
+6. 重写从父类中继承的一般方法
+-->
+<script type="text/javascript">
+  
+  //使用构造函数
+  /*function Person(name,age) {
+    this.name = name
+    this.age = age
+  }
+  Person.prototype.setName = function (name) {
+    this.name = name
+  }
+  
+  let p = new Person('tom',18)
+  console.log(p)*/
+  
+  //使用类的形式
+  //定义一个人类
+  class Person {
+    //构造器里定义放在自身上的属性 ----- (相当于用构造函数形式的传参)
+    constructor(name,age,sex){
+      this.name = name
+      this.age = age
+      this.sex = sex
+    }
+    //定义方法
+    setName(name){
+      this.name = name
+    }
+    speak(){
+      console.log(`我是${this.name}，我的年龄是${this.age}，我的性别是${this.sex}`)
+    }
+    
+    //下面的test方法是在实例自身上的，new了n个实例，那么n个实例身上都有test
+    /*test = function(){
+      console.log('test')
+    }*/
+
+    //1.除了上面的几个写法，类里还可以写赋值语句，如果写了形如：a = b,那么在实例身上有a属性，值为b
+    //tui = 2
+    
+    //2.static声明的方法是给类本身用的，而不是给实例用的
+    static demo(){
+      console.log('demo')
+    }
+  }
+
+  //定义一个学生类1
+  class Student extends Person{
+    constructor(name,age,sex,school,grade){
+      //帮助我们调用父类的构造器，目的是让Student也同样拥有：name,age,sex
+      super(name,age,sex)
+      this.school = school
+      this.grade = grade
+    }
+    study(){
+      console.log(`我是${this.name},在努力的学习`)
+    }
+    //重写从父类继承过来的方法
+    speak(){
+      console.log(`我是${this.name}，我的年龄是${this.age}，我的性别是${this.sex}，我的学校是${this.school}`)
+    }
+  }
+  
+  /*let p = new Person('tom',18)
+  p.setName('jerry')
+  p.speak()
+  console.log(p)*/
+  
+  /*let s = new Student('tom',18,'女','尚大',100)
+  s.setName('wade')
+  s.speak()
+  s.study()
+  console.log(s)*/
+  
+</script>
+</html>

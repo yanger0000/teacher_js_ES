@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Symbol</title>
+</head>
+<body>
+<!--
+  前言：ES5中对象的属性名都是字符串，容易造成重名，污染环境
+  Symbol：
+    概念：ES6中的添加了一种原始(基本)数据类型Symbol
+    备注：已有的原始(基本)数据类型：String, Number, boolean, null, undefined  现在追加一个Symbol
+    特点：
+      1、Symbol属性对应的值是唯一的，用于解决命名冲突问题
+      2、Symbol值不能与其他数据进行计算，包括同字符串拼串
+      3、for in, for of遍历时不会遍历symbol属性。
+    使用：
+      1、调用Symbol函数得到symbol值
+        let symbol = Symbol();
+        let obj = {};
+        obj[symbol] = 'hello';
+        
+      2、传参标识
+        let symbol = Symbol('one');
+        let symbol2 = Symbol('two');
+        console.log(symbol);// Symbol('one')
+        console.log(symbol2);// Symbol('two')
+        
+      3、Symbol的iterator属性
+        * 某些对象的原型对象上拥有Symbol.iterator属性，他指向该对象的默认遍历器方法
+-->
+
+<script type="text/javascript">
+  
+  /*let a = Symbol('asd')
+  let b = Symbol()
+  console.log(a)
+  console.log(b)
+  console.log(a === b)*/
+  
+  //开发中用的不是很多
+  /*let name = Symbol()
+  let age = Symbol()
+  
+  let person = {}
+  person[name] = 'kobe'
+  person[age] = 18
+  console.log(person)
+  
+  console.log(person[name])
+  
+  let obj = {m:1,n:2}*/
+  //console.log(...obj)
+  
+  console.log(Array.prototype[Symbol.iterator])
+  console.log(Object.prototype[Symbol.iterator])
+  
+</script>
+
+</body>
+</html>

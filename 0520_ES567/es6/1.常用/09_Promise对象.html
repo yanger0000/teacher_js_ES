@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>11_Promise对象</title>
+</head>
+<body>
+<button>abc</button>
+<!--
+1. 理解:
+  * Promise对象: 代表了未来某个将要发生的事件(通常是一个异步操作)
+  * 有了promise对象, 可以将异步操作以同步的流程表达出来, 避免了层层嵌套的回调函数(俗称'回调地狱')
+  * ES6的Promise是一个构造函数, 用来生成promise实例
+  
+2. 使用promise基本步骤(共分为2步):
+      1.创建promise对象
+      2.监测promise对象的状态（默认、成功、失败）
+      
+  * 创建promise对象
+    let promise = new Promise((resolve, reject) => {
+      //初始化promise状态为 pending
+      //执行异步操作
+      if(异步操作成功) {
+        resolve(value);//修改promise的状态为fullfilled
+      } else {
+        reject(errMsg);//修改promise的状态为rejected
+      }
+    })
+    
+  * 第一种：调用promise的then()
+    promise.then(function(
+      result => console.log(result),
+      errorMsg => alert(errorMsg)
+    ))
+    
+  * 第二种：调用promise的then()与.catch() --------  用的不多
+  promise.then(function(
+    result => console.log(result),
+    errorMsg => alert(errorMsg)
+  ))
+  
+3. promise实例对象的3个状态
+  * pending: 初始化状态
+  * resolved: 成功状态
+  * rejected: 失败状态
+  
+4. 应用:
+  * 使用promise封装处理ajax请求
+-->
+
+<script type="text/javascript">
+
+  //Promise实例对象有三种状态：1.初始化状态(pending)，2.成功状态，3.失败状态  （状态机）
+  let p1 = new Promise(function(resolve,reject){
+      //调用resolve，把Promise实例内部的状态变为成功
+      //调用reject，把Promise实例内部的状态变为失败
+      setTimeout(()=>{
+        resolve('很遗憾没有中奖')
+      },1000)
+  })
+  
+  //第一种：监测Promise实例状态的方法，值得注意的是：then方法默认会返回一个Promise的实例，且状态为“成功”的状态。
+ /* p1.then(function (data) {
+    console.log('成功的回调函数被调用了',data)
+  },function (err) {
+    console.log('失败的回调函数被调用了',err)
+  })*/
+
+  //第二种：监测Promise实例状态的方法
+  /*p1.then(function(data){
+    console.log('成功的回调函数被调用了',data)
+  }).catch(function(err){
+    console.log('失败的回调函数被调用了',err)
+  })*/
+  
+  //模拟发送Ajax请求----产生了回调地狱
+  /*function sendAjax(id,f) {
+    //模拟ajax请求的数据在1秒钟之后回来了，回来的数据：1.成功的数据 2.失败的数据
+    setTimeout(function () {
+      f(`我是第${id}次请求，我的数据回来了`)
+    },1000)
+  }
+  
+  //要求：一共有4个ajax请求，必须等前一个已经成功返回数据，下一个再发出去
+  //如下代码就是“回调地狱”，一层一层一层的回调函数在嵌套
+  sendAjax(1,function (data) {
+    console.log(data)
+    sendAjax(2,function (data) {
+      console.log(data)
+      sendAjax(3,function (data) {
+        console.log(data)
+        sendAjax(4,function (data) {
+          console.log(data)
+        })
+      })
+    })
+  })
+  //for循环不能实现1回来，2再发送
+  for (var i=0; i<4; i++ ){
+    sendAjax(i,function (data) {
+      console.log(data)
+    })
+  }*/
+  
+  //借助Promise解决回调地狱
+  function sendAjax(id) {
+    return new Promise(function (resolve,reject) {
+      setTimeout(function () {
+        resolve(`我是第${id}次请求，我的数据回来了`)
+      },1000)
+    })
+  }
+  
+  let myPromise = sendAjax(1)
+  
+  //虽然解决了回调地狱，但是依然很不友好，依然在开发中很少使用
+  myPromise
+    .then(function (data) {
+      console.log(data)
+      return sendAjax(2)
+    })
+    .then(function (data) {
+      console.log(data)
+      return sendAjax(3)
+    })
+    .then(function (data) {
+      console.log(data)
+      return sendAjax(4)
+    })
+    .then(function (data) {
+      console.log(data)
+    })
+    
+  
+</script>
+</body>
+</html>

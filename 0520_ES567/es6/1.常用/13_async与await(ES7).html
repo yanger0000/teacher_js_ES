@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>async函数</title>
+</head>
+<body>
+
+<!--
+  async函数(源自ES2016)
+  概念： 真正意义上去解决异步回调的问题，同步流程表达异步操作
+  本质： Generator的语法糖
+  语法：
+      async function foo(){
+        await 异步操作;
+        await 异步操作；
+      }
+  特点：
+    1、不需要像Generator去调用next方法，遇到await等待，当前的异步操作完成就往下执行
+    2、返回的总是Promise对象，可以用then方法进行下一步操作
+    3、async取代Generator函数的星号*，await取代Generator的yield
+    4、语意上更为明确，使用简单，经临床验证，暂时没有任何副作用
+
+-->
+<script type="text/javascript">
+
+  //案例练习，需求：有4个异步任务，等第一个成功的执行了，之后再发送第二个，以此类推
+  
+  //借助Promise解决回调地狱
+  function sendAjax(id) {
+    return new Promise(function (resolve,reject) {
+      setTimeout(function () {
+        resolve(`我是第${id}次请求，我的数据回来了`)
+      },1000)
+    })
+  }
+
+
+  //虽然解决了回调地狱，但是依然很不友好，依然在开发中很少使用
+  /*let myPromise = sendAjax(1)
+      myPromise
+    .then(function (data) {
+      console.log(data)
+      return sendAjax(2)
+    })
+    .then(function (data) {
+      console.log(data)
+      return sendAjax(3)
+    })
+    .then(function (data) {
+      console.log(data)
+      return sendAjax(4)
+    })
+    .then(function (data) {
+      console.log(data)
+    })*/
+  
+  /*(async ()=> {
+    console.log(await sendAjax(1)); //await第一等待，直到获取了成功时候的数据
+    console.log(await sendAjax(2));
+    console.log(await sendAjax(3));
+    console.log(await sendAjax(4));
+  })()
+  
+  async function demo() {
+    let result = await sendAjax(1)
+    console.log(result);
+  }
+  demo()*/
+  
+  
+  //async的“副作用”:如果一个函数被async声明了，那么无论返回值是多少，一定在外侧“包裹”了一层Promise对象，且状态为成功
+  async function test() {
+    await sendAjax(100)
+  }
+  /*(async ()=>{
+    let result = test()
+    let result2 = await result
+  })()*/
+  
+  
+
+</script>
+</body>
+</html>

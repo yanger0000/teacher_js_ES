@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04_对象扩展</title>
+</head>
+<body>
+<!--
+1. Object.is(v1, v2)
+    Object.is() 判断两个值是否相同。如果下列任何一项成立，则两个值相同，返回true：
+    两个值都是 undefined
+    两个值都是 null
+    两个值都是 true 或者都是 false
+    两个值是由相同个数的字符按照相同的顺序组成的字符串
+    两个值指向同一个对象
+    两个值都是数字并且
+        都是正零 +0
+        都是负零 -0
+        都是 NaN
+        都是除零和 NaN 外的其它同一个数字
+    注意：这种相等性判断逻辑和传统的 == 运算不同，== 运算符会对它两边的操作数做隐式类型转换（如果它们类型不同），
+          然后才进行相等性比较，（所以才会有类似 "" == false 等于 true 的现象），但 Object.is 不会做这种类型转换。
+          它与 === 运算符的判定方式也不一样。=== 运算符（和== 运算符）将数字值 -0 和 +0 视为相等，并认为 Number.NaN 不等于 NaN。
+          
+2. Object.assign(target, source1, source2..)
+  * 将源对象的属性复制到目标对象上
+3. 直接操作 __proto__ 属性
+  let obj2 = {};
+  obj2.__proto__ = obj1;
+-->
+
+<script type="text/javascript">
+
+  console.log(Object.is(0, -0));//false
+  console.log(Object.is('123', '123'));
+  console.log(Object.is(NaN, NaN));//??????
+  console.log(Object.is({m:1,n:2}, {m:1,n:2}));//false
+  console.log(Object.is(null, null));//true
+  console.log(Object.is(undefined, undefined));//true
+  
+  
+  let obj = {a:1,b:2}
+  let obj2 = {c:3,d:4}
+
+  let obj3 = {}
+  Object.assign(obj3,obj,obj2)
+  console.log(obj3)
+  
+
+
+</script>
+</body>
+
+</html>

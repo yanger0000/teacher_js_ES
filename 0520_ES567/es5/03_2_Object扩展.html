@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<!--
+    对象本身的两个方法
+    * get 扩展属性名(){} 用来得到当前属性值的回调函数
+    * set 扩展属性名(){} 用来监视当前属性值变化的回调函数
+-->
+<script type='text/javascript'>
+
+  var person = {
+    firstName:'张',
+    lastName:'三',
+    get fullName (){
+      return this.firstName +' '+ this.lastName
+    },
+    set fullName(data){
+      var nameArr = data.split(' ')
+      this.firstName = nameArr[0]
+      this.lastName = nameArr[1]
+    },
+    sex:'男'
+  }
+
+  console.log(person.fullName)
+  person.fullName = '李 四'
+  console.log(person.fullName)
+  console.log(person.firstName)
+  console.log(person.lastName)
+  person.firstName = '汴'
+  person.lastName = '静静'
+  console.log(person.fullName)
+
+
+</script>
+</body>
+</html>
